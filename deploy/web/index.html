@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة نتائج الشهادة السودانية | استعلام فوري</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #059669;
+      --primary-dark: #047857;
+      --primary-light: #10b981;
+      --primary-subtle: #d1fae5;
+      --accent: #2563eb;
+      --accent-subtle: #dbeafe;
+      --gold: #d97706;
+      --gold-subtle: #fef3c7;
+      --danger: #dc2626;
+      --danger-subtle: #fee2e2;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 14px -2px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1);
+      --font-family: 'Cairo', system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    /* Top Banner */
+    header {
+      background: linear-gradient(135deg, #065f46 0%, #047857 50%, #0f766e 100%);
+      color: #ffffff;
+      padding: 32px 20px 48px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(4, 120, 87, 0.25);
+    }
+
+    .header-content {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    p.subtitle {
+      font-size: 1rem;
+      opacity: 0.92;
+      font-weight: 400;
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 820px;
+      width: 100%;
+      margin: -24px auto 40px;
+      padding: 0 16px;
+      z-index: 10;
+    }
+
+    /* Search Box */
+    .search-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+    }
+
+    .search-input-wrapper {
+      display: flex;
+      gap: 10px;
+      position: relative;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 14px 20px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      background: #f8fafc;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+    }
+
+    .btn-search {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 0 28px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-search:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-search:active {
+      transform: translateY(0);
+    }
+
+    /* Quick suggestions */
+    .quick-tags {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+      font-size: 0.88rem;
+    }
+
+    .tag-label {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .tag-btn {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      color: #334155;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tag-btn:hover {
+      background: var(--primary-subtle);
+      border-color: var(--primary-light);
+      color: var(--primary-dark);
+    }
+
+    /* Status and Results Container */
+    #results-area {
+      margin-top: 24px;
+    }
+
+    .spinner {
+      display: none;
+      text-align: center;
+      padding: 40px;
+      color: var(--primary);
+    }
+
+    .spinner-ring {
+      display: inline-block;
+      width: 44px;
+      height: 44px;
+      border: 4px solid var(--primary-subtle);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Single Result Hero Card */
+    .result-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-header {
+      padding: 24px;
+      background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+      border-bottom: 1px solid #ecfdf5;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .student-info h2 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .seat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #e2e8f0;
+      color: #334155;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .pct-box {
+      text-align: left;
+    }
+
+    .pct-value {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--primary-dark);
+      line-height: 1;
+    }
+
+    .status-badge {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .status-pass {
+      background: var(--primary-subtle);
+      color: var(--primary-dark);
+    }
+
+    .status-fail {
+      background: var(--danger-subtle);
+      color: var(--danger);
+    }
+
+    /* Rank and Percentile Insights */
+    .insights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 24px;
+      background: #ffffff;
+    }
+
+    @media (max-width: 640px) {
+      .insights-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .insight-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      position: relative;
+    }
+
+    .insight-card.gold {
+      background: #fffbeb;
+      border-color: #fde68a;
+    }
+
+    .insight-card.blue {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+    }
+
+    .insight-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .insight-card.gold .insight-title { color: #b45309; }
+    .insight-card.blue .insight-title { color: #1d4ed8; }
+
+    .insight-value {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .insight-card.gold .insight-value { color: #92400e; }
+    .insight-card.blue .insight-value { color: #1e40af; }
+
+    .insight-desc {
+      font-size: 0.85rem;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    /* Progress bar */
+    .progress-wrapper {
+      padding: 0 24px 24px;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .progress-track {
+      height: 12px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981 0%, #047857 100%);
+      border-radius: 999px;
+      transition: width 0.8s ease;
+      width: 0%;
+    }
+
+    /* Action bar */
+    .card-actions {
+      padding: 16px 24px;
+      background: #f8fafc;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-share {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: #334155;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-share:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    /* Multi-result table / list */
+    .results-count-banner {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 12px;
+      padding: 0 4px;
+    }
+
+    .students-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .student-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .student-item:hover {
+      border-color: var(--primary-light);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-1px);
+    }
+
+    .item-main h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .item-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .item-pct {
+      text-align: left;
+    }
+
+    .item-pct .score {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--primary-dark);
+    }
+
+    /* Message / Empty states */
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px dashed var(--border);
+      color: var(--text-muted);
+    }
+
+    .empty-state svg {
+      width: 52px;
+      height: 52px;
+      stroke: #94a3b8;
+      margin-bottom: 12px;
+    }
+
+    .empty-state h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    /* Footer */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border);
+      padding: 24px 20px;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .stats-pill {
+      display: inline-flex;
+      gap: 16px;
+      background: #f1f5f9;
+      padding: 6px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* Donation Section */
+    .donation-section {
+      margin-top: 36px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 26px 20px;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+    }
+
+    .donation-header h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .donation-header p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .donation-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 640px) {
+      .donation-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .donation-card {
+      background: #f8fafc;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.2s ease;
+      text-align: right;
+    }
+
+    .donation-card:hover {
+      border-color: var(--primary-light);
+      background: #ffffff;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .donation-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+
+    .donation-info {
+      flex: 1;
+    }
+
+    .donation-name {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 3px;
+    }
+
+    .donation-num {
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #0f172a;
+      direction: ltr;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .btn-copy-acc {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: #334155;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+
+    .btn-copy-acc:hover {
+      background: var(--primary-subtle);
+      border-color: var(--primary-light);
+      color: var(--primary-dark);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <div class="badge-top">
+        <span>🇸🇩</span>
+        <span>جمهورية السودان - وزارة التربية والتعليم</span>
+      </div>
+      <h1>بوابة نتائج الشهادة الثانوية</h1>
+      <p class="subtitle">محرك استعلام فوري فائق السرعة يدعم البحث برقم الجلوس أو اسم الطالب مع حساب الترتيب والمئينية تلقائياً</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="search-card">
+      <form id="search-form" onsubmit="handleSearch(event)">
+        <div class="search-input-wrapper">
+          <input
+            type="text"
+            id="search-input"
+            class="search-input"
+            placeholder="أدخل رقم الجلوس أو اسم الطالب (مثال: 209150 أو خالد يوسف)..."
+            autocomplete="off"
+            autofocus
+          >
+          <button type="submit" class="btn-search">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <span>بحث</span>
+          </button>
+        </div>
+      </form>
+
+      <div class="quick-tags">
+        <span class="tag-label">أمثلة سريعة:</span>
+        <button type="button" class="tag-btn" onclick="quickSearch('209150')">تقى النور (الأولى: 97.7%)</button>
+        <button type="button" class="tag-btn" onclick="quickSearch('أحمد محمد')">أحمد محمد</button>
+      </div>
+    </div>
+
+    <!-- Spinner -->
+    <div id="spinner" class="spinner">
+      <div class="spinner-ring"></div>
+      <p style="margin-top: 10px; font-weight: 700;">جاري البحث في قاعدة البيانات...</p>
+    </div>
+
+    <!-- Results Area -->
+    <div id="results-area"></div>
+
+    <!-- Donation Section -->
+    <div class="donation-section">
+      <div class="donation-header">
+        <h3>
+          <span>💖</span>
+          <span>للتبرع والمساهمة في دعم صاحب الموقع</span>
+        </h3>
+        <p>إذا أعجبك الموقع وساعدك، يمكنك دعم المطور لمواصلة الاستضافة والتطوير عبر الحسابات التالية:</p>
+      </div>
+
+      <div class="donation-grid">
+        <!-- بنكك -->
+        <div class="donation-card">
+          <img src="/bankak.jpg" alt="بنكك" class="donation-logo">
+          <div class="donation-info">
+            <div class="donation-name">حساب بنكك (بنك الخرطوم)</div>
+            <div class="donation-num">7947825</div>
+            <div>
+              <button class="btn-copy-acc" id="btn-bankak" onclick="copyAccountNumber('7947825', 'btn-bankak')">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <span>نسخ رقم الحساب</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ماي كاشي -->
+        <div class="donation-card">
+          <img src="/mycashi.png" alt="ماي كاشي" class="donation-logo">
+          <div class="donation-info">
+            <div class="donation-name">حساب ماي كاشي (My Cashi)</div>
+            <div class="donation-num">401513147</div>
+            <div>
+              <button class="btn-copy-acc" id="btn-cashi" onclick="copyAccountNumber('401513147', 'btn-cashi')">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <span>نسخ رقم الحساب</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="stats-pill" id="stats-pill">
+      <span>📊 إجمالي الطلاب المفهرسين: <b>521,360</b></span>
+      <span>✅ نسبة النجاح العامة: <b>69.6%</b></span>
+      <span>⚡ سرعة الاستعلام: <b>أقل من 2ms</b></span>
+    </div>
+    <p>منظومة الاستعلام السريعة لنتائج الشهادة السودانية | تشغيل محلي فائق الكفاءة</p>
+  </footer>
+
+  <script>
+    const searchInput = document.getElementById('search-input');
+    const resultsArea = document.getElementById('results-area');
+    const spinner = document.getElementById('spinner');
+
+    let debounceTimer = null;
+
+    // Instant search debouncing on typing
+    searchInput.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      const val = searchInput.value.trim();
+      if (val.length >= 2) {
+        debounceTimer = setTimeout(() => {
+          performSearch(val);
+        }, 320);
+      } else if (val.length === 0) {
+        resultsArea.innerHTML = '';
+      }
+    });
+
+    function quickSearch(query) {
+      searchInput.value = query;
+      performSearch(query);
+    }
+
+    function handleSearch(e) {
+      if (e) e.preventDefault();
+      const val = searchInput.value.trim();
+      if (val) performSearch(val);
+    }
+
+    async function performSearch(query) {
+      spinner.style.display = 'block';
+      resultsArea.innerHTML = '';
+
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+        const data = await res.json();
+        spinner.style.display = 'none';
+
+        if (!data.results || data.results.length === 0) {
+          renderNotFound(query);
+          return;
+        }
+
+        // If exact seat match or single result, render detail hero card
+        if (data.type === 'seat' || data.results.length === 1) {
+          renderHeroCard(data.results[0]);
+        } else {
+          renderResultsList(data.results, query);
+        }
+      } catch (err) {
+        spinner.style.display = 'none';
+        resultsArea.innerHTML = `
+          <div class="empty-state">
+            <h3 style="color: var(--danger);">حدث خطأ أثناء الاتصال بالخادم</h3>
+            <p>${err.message}</p>
+          </div>
+        `;
+      }
+    }
+
+    function renderHeroCard(s) {
+      const isPass = s.pct >= 50.0 || s.result === 'نجاح';
+      const pctDisplay = s.pct > 0 ? `${s.pct}%` : '0%';
+      const topPct = (100 - s.percentile_all).toFixed(1);
+
+      resultsArea.innerHTML = `
+        <div class="result-card">
+          <div class="result-header">
+            <div class="student-info">
+              <div class="seat-badge">رقم الجلوس: ${s.seat.toLocaleString()}</div>
+              <h2 style="margin-top: 8px;">${s.name}</h2>
+            </div>
+            <div class="pct-box">
+              <div class="pct-value">${pctDisplay}</div>
+              <div class="status-badge ${isPass ? 'status-pass' : 'status-fail'}">
+                ${s.result}
+              </div>
+            </div>
+          </div>
+
+          <div class="insights-grid">
+            <div class="insight-card gold">
+              <div class="insight-title">
+                <span>🏆</span>
+                <span>الترتيب القومي (على مستوى السودان)</span>
+              </div>
+              <div class="insight-value">المركز ${s.rank.toLocaleString()}</div>
+              <div class="insight-desc">من إجمالي 521,360 طالباً جلسوا للامتحان</div>
+            </div>
+
+            <div class="insight-card blue">
+              <div class="insight-title">
+                <span>🌟</span>
+                <span>الموقع المئيني والتميز</span>
+              </div>
+              <div class="insight-value">أفضل ${topPct}%</div>
+              <div class="insight-desc">تفوقت على ${s.percentile_all}% من جميع الطلاب في السودان</div>
+            </div>
+          </div>
+
+          <div class="progress-wrapper">
+            <div class="progress-header">
+              <span>معدل التفوق على الدفعة</span>
+              <span><b>${s.percentile_all}%</b></span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-bar" id="p-bar"></div>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn-share" onclick="copyResultText('${s.name}', '${s.seat}', '${s.pct}', '${s.rank}', '${s.percentile_all}')">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+              <span>نسخ ملخص النتيجة</span>
+            </button>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">تم الاستعلام بنجاح في أقل من ميلي ثانية</span>
+          </div>
+        </div>
+      `;
+
+      // Animate progress bar
+      setTimeout(() => {
+        const bar = document.getElementById('p-bar');
+        if (bar) bar.style.width = `${s.percentile_all}%`;
+      }, 50);
+    }
+
+    function renderResultsList(list, query) {
+      let itemsHtml = '';
+      list.forEach((s) => {
+        const isPass = s.pct >= 50.0 || s.result === 'نجاح';
+        itemsHtml += `
+          <div class="student-item" onclick='renderHeroCard(${JSON.stringify(s)})'>
+            <div class="item-main">
+              <h3>${s.name}</h3>
+              <div class="item-meta">
+                <span>رقم الجلوس: <b>${s.seat.toLocaleString()}</b></span>
+                <span>الترتيب: <b>#${s.rank.toLocaleString()}</b></span>
+                <span style="color: ${isPass ? 'var(--primary)' : 'var(--danger)'};"><b>${s.result}</b></span>
+              </div>
+            </div>
+            <div class="item-pct">
+              <div class="score">${s.pct}%</div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">عرض التفاصيل ❯</span>
+            </div>
+          </div>
+        `;
+      });
+
+      resultsArea.innerHTML = `
+        <div class="results-count-banner">
+          تم العثور على <b>${list.length}</b> طالب يطابق البحث: «${query}» (انقر على أي اسم لعرض بطاقة النتيجة والترتيب):
+        </div>
+        <div class="students-list">
+          ${itemsHtml}
+        </div>
+      `;
+    }
+
+    function renderNotFound(query) {
+      resultsArea.innerHTML = `
+        <div class="empty-state">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <h3>لم يتم العثور على أي طالب</h3>
+          <p>لم نجد نتائج مطابقة لـ «<b>${query}</b>». يرجى التأكد من كتابة رقم الجلوس أو صياغة الاسم بشكل صحيح.</p>
+        </div>
+      `;
+    }
+
+    function copyResultText(name, seat, pct, rank, pctl) {
+      const text = `🇸🇩 نتيجة الشهادة السودانية:
+الطالب: ${name}
+رقم الجلوس: ${seat}
+النسبة: ${pct}%
+الترتيب على مستوى السودان: المركز ${Number(rank).toLocaleString()}
+التفوق: أفضل من ${pctl}% من طلاب السودان 🎉`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        alert('تم نسخ تفاصيل النتيجة بنجاح!');
+      }).catch(() => {
+        prompt('انسخ النتيجة من هنا:', text);
+      });
+    }
+
+    function copyAccountNumber(num, btnId) {
+      navigator.clipboard.writeText(num).then(() => {
+        const btn = document.getElementById(btnId);
+        if (btn) {
+          const orig = btn.innerHTML;
+          btn.innerHTML = '<span>✓ تم نسخ الرقم</span>';
+          btn.style.borderColor = 'var(--primary)';
+          btn.style.color = 'var(--primary-dark)';
+          setTimeout(() => {
+            btn.innerHTML = orig;
+            btn.style.borderColor = '';
+            btn.style.color = '';
+          }, 2000);
+        }
+      }).catch(() => {
+        prompt('رقم الحساب:', num);
+      });
+    }
+  </script>
+</body>
+</html>
