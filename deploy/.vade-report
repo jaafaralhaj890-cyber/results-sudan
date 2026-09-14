@@ -1,0 +1,51 @@
+# Vercel Speed Insights Installation Report
+
+## Summary
+Successfully installed and configured Vercel Speed Insights for the static HTML application.
+
+## Implementation Details
+
+### What was implemented:
+- Added Vercel Speed Insights tracking scripts to the main HTML file
+
+### Files Modified:
+- `web/index.html` - Added Speed Insights initialization and script tags
+
+### Changes Made:
+Added the following scripts before the closing `</body>` tag:
+1. Speed Insights initialization script: `window.si` function queue
+2. Deferred Speed Insights script loading from `/_vercel/speed-insights/script.js`
+
+### Implementation Notes:
+- This project uses a static HTML architecture with a Python backend API
+- No npm packages were needed since this is a vanilla HTML/JavaScript project
+- The Speed Insights scripts follow Vercel's official documentation for HTML/static sites
+- The script will automatically activate upon deployment to Vercel
+- Speed Insights data will be available at `/_vercel/speed-insights/*` routes
+- The implementation is placed alongside the existing Vercel Analytics scripts
+
+### Framework-Specific Details:
+- **Framework**: Static HTML with vanilla JavaScript
+- **Installation Method**: Direct script injection (as per Vercel's HTML/Astro documentation)
+- **No package manager changes**: This project doesn't use npm/yarn/pnpm/bun
+
+### How it Works:
+1. The `window.si` initialization creates a queue for Speed Insights events
+2. The deferred script loads the Speed Insights tracking code from Vercel's CDN
+3. Upon deployment, Vercel automatically serves the Speed Insights script
+4. Performance metrics are collected and sent to Vercel's Speed Insights dashboard
+
+### Verification:
+- HTML syntax validated - all tags properly closed
+- Scripts placed in correct location (before closing `</body>` tag)
+- Follows official Vercel Speed Insights quickstart documentation
+- Compatible with existing Vercel Analytics implementation
+
+## Next Steps:
+After deployment to Vercel, Speed Insights will automatically:
+1. Start collecting Real User Monitoring (RUM) data
+2. Track Core Web Vitals (LCP, FID, CLS)
+3. Display performance metrics in the Vercel dashboard
+4. Monitor page load performance across different routes
+
+No additional configuration is required.
